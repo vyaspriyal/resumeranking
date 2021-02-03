@@ -1,0 +1,286 @@
+{% extends "layout.html" %}
+{% block head %}
+<title>...</title>
+
+<style type="text/css">
+  * {
+    font-family: Century Gothic;
+    background-color: blue;
+  }
+
+  .change {
+    color: #ffcc00;
+  }
+
+  .aa:hover {
+    border-bottom: solid #ffcc00;
+    color: #fff;
+  }
+
+  .input {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .logincss{
+  margin-top: 2px;
+  margin-bottom: 6px;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<!------main container start here---->
+<div class="container-fluid h-100"  >
+
+    <div class="row  h-100 justify-content-center align-items-center">
+       <div class="col-sm">
+        <h3 class="text-center change">welcome</h3>
+        <h2 class="text-center">Automated Pre-Selected Process for Placement by  Personality Prediction and CV analysis.</h2>
+            </div>
+         <!------left end---->
+    <div class="col-sm">
+      <nav class="navbar navbar-expand-sm text-center">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item register_li">
+            <a class="nav-link change aa" href="#">Register</a>
+          </li>
+          <li class="nav-item login_li">
+            <a class="nav-link change aa" href="#">Login</a>
+          </li>
+        </ul>
+      </nav>
+      <!------register start---->
+    <div class=" container register text-center h-100">
+      <h2 class="text-center" >Register</h2>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Join Today</legend>
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-sm align-self-center">
+                <div class="form-group">
+                    {{ form.username.label(class="form-control-label") }}
+
+                    {% if form.username.errors %}
+                        {{ form.username(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.username(class="form-control form-control") }}
+                    {% endif %}
+                </div>
+                </div>
+                <div class="col-sm">
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label") }}
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control") }}
+                    {% endif %}
+                </div>
+                </div>
+                </div>
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-sm align-self-center">
+                <div class="form-group">
+                    {{ form.password.label(class="form-control-label") }}
+                    {% if form.password.errors %}
+                    <div class="wrapper mx-auto" style="position: relative">
+                        {{ form.password(class="form-control form-control is-invalid") }}
+                        <i class="fa fa-eye-slash icon pass" id="eye" aria-hidden="true" onclick="toggle3()" style="
+                        background-color: yellow;
+                        position: absolute;
+                        right: 10px;
+                        top: 10px;
+                        cursor: pointer;
+                      "></i></div>
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                    <div class="wrapper mx-auto" style="position: relative">
+                        {{ form.password(class="form-control form-control", placeholder="Password",
+                        ) }}
+                     
+                <i class="fa fa-eye-slash icon pass" id="eye" aria-hidden="true" onclick="toggle()" style="
+                background-color: white;
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                cursor: pointer;
+              "></i></div>
+                    {% endif %}
+                </div>
+                </div>
+                <div class="col-sm align-self-center">
+                <div class="form-group">
+                    {{ form.confirm_password.label(class="form-control-label") }}
+                    {% if form.confirm_password.errors %}
+                    <div class="wrapper mx-auto" style="position: relative">
+                        {{ form.confirm_password(class="form-control form-control is-invalid") }}
+                        <i class="fa fa-eye-slash icon pass" id="eye3" aria-hidden="true" onclick="toggle3()" style="
+                        background-color: white;
+                        position: absolute;
+                        right: 10px;
+                        top: 10px;
+                        cursor: pointer;
+                      "></i></div>
+                        <div class="invalid-feedback">
+                            {% for error in form.confirm_password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                    <div class="wrapper mx-auto" style="position: relative">
+                        {{ form.confirm_password(class="form-control form-control") }}
+                        <i class="fa fa-eye-slash icon pass" id="eye3" aria-hidden="true" onclick="toggle3()" style="
+                        background-color: white;
+                        position: absolute;
+                        right: 10px;
+                        top: 10px;
+                        cursor: pointer;
+                      "></i></div>
+                    {% endif %}
+                </div>
+                </div>
+                </div>
+                <div class="form-group">
+                    {{ form.phone.label(class="form-control-label") }}
+
+                    {% if form.phone.errors %}
+                        {{ form.phone(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.phone.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.phone(class="form-control form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.address.label(class="form-control-label") }}
+
+                    {% if form.address.errors %}
+                        {{ form.address(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.address.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.address(class="form-control form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                  {% for subfield in form.option %}
+                  <tr>
+                      <td>{{ subfield }}</td>
+                      <td>{{ subfield.label }}</td>
+                  </tr>
+                  {% endfor %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+
+    <div class="border-top pt-2">
+        <small class="text-muted">
+            Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
+        </small>
+    </div>
+</div>
+
+
+
+    <!------register end---->
+
+    <!------right end---->
+
+    <!------right login start here---->
+    <div class="container login text-center align-self-center h-100">
+        <h2 class="text-center" style="color: #fff">Login</h2>
+        <form  action="{{url_for('register')}}" method="POST">
+          <div class="form-group align-self-center justify-content-center">
+            <div class="form-group">
+              {{ form.email_login.label(class="form-control-label") }}
+
+              {% if form.email_login.errors %}
+                  {{ form.email_login(class="form-control form-control is-invalid") }}
+                  <div class="invalid-feedback">
+                      {% for error in form.email_login.errors %}
+                          <span>{{ error }}</span>
+                      {% endfor %}
+                  </div>
+              {% else %}
+                  {{ form.email_login(class="form-control form-control") }}
+              {% endif %}
+          </div>
+          </div>
+  
+          <div class="form-group">
+            {{ form.password_login.label(class="form-control-label") }}
+            {% if form.password_login.errors %}
+            <div class="wrapper mx-auto" style="position: relative">
+                {{ form.password_login(class="form-control form-control-sm is-invalid") }}
+                <i class="fa fa-eye-slash icon pass" id="eye1" aria-hidden="true" onclick="toggle1()" style="
+                background-color: yellow;
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                cursor: pointer;
+              "></i></div>
+                <div class="invalid-feedback">
+                    {% for error in form.password_login.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+            <div class="wrapper mx-auto" style="position: relative">
+                {{ form.password_login(class="form-control form-control"
+                ) }}
+                <i class="fa fa-eye-slash icon pass" id="eye1" aria-hidden="true" onclick="toggle1()" style="
+                background-color: white;
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                cursor: pointer;
+              "></i></div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+          {% for subfield in form.option1 %}
+          <tr>
+              <td>{{ subfield }}</td>
+              <td>{{ subfield.label }}</td>
+          </tr>
+          {% endfor %}
+        </div>
+  
+  
+          <div class="row justify-content-center align-self-center">
+            <button type="submit" class="btn btn-outline-warning">Submit</button>
+          </div>
+        </form>
+      </div>
+  
+      <!------left login start here---->
+      <!------register end---->
+    </div>
+  </div>
+  <!------main container end here---->
+  
+
+{% endblock content %}
