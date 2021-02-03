@@ -1,19 +1,10 @@
-from flask import Flask, render_template, url_for, flash, redirect,request
+from flask import  render_template, url_for, flash, redirect,request
+from project import app,db,bcrypt
+from project.forms import RegistrationForm
+from project.models import User,Admin
 
-from flask_sqlalchemy import SQLAlchemy
-import os
-import pymysql
-pymysql.install_as_MySQLdb()
-from flask_bcrypt import Bcrypt
-from forms import RegistrationForm
-app = Flask(__name__)
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-app.secret_key = "Secret Key"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:''@localhost/beproject'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
-from models import User,Admin
+
+
 
 @app.route("/")
 @app.route("/home")
@@ -27,7 +18,7 @@ def about():
 @app.route("/register", methods=['GET','POST'])
 def register():
     form = RegistrationForm()
-    if request.method == 'POST':
+    if   form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         name = request.form['username']
         phone = request.form['phone']
@@ -47,7 +38,8 @@ def register():
             my_data = User(name,email,hashed_password,phone,address)
             db.session.add(my_data)
             db.session.commit()
-            flash('Thank you for registering')
+            
+            return render_template('home.html', title='Register', form=form)
         elif option == "admin":
             my_data = Admin(name,email,hashed_password,phone,address)
             db.session.add(my_data)
@@ -73,6 +65,3 @@ def login():
             flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
-
-if __name__ == '__main__':
-    app.run(debug=True)

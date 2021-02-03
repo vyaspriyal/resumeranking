@@ -3,7 +3,8 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField,Intege
 from wtforms.validators import DataRequired, Length, Email, EqualTo,ValidationError
 import email_validator
 from wtforms import validators
-from models import User
+from project.models import User
+
 
 
 class RegistrationForm(FlaskForm):
@@ -24,7 +25,7 @@ class RegistrationForm(FlaskForm):
 
 
     def validate_username(self,username):
-        user = User.query.filter_by(username = username.data).first()
+        user = User.query.filter_by(name = username.data).first()
         if user:
             raise ValidationError('Username already taken.')
     

@@ -51,7 +51,9 @@
       <!------register start---->
     <div class=" container register text-center h-100">
       <h2 class="text-center" >Register</h2>
-        <form method="POST" action="">
+        <form method="POST" action="{{ url_for('register') }}">
+            <input id="csrf_token" name="csrf_token" type="hidden" value="ImYzODdmZTdhYTRlMmNkYWRjYmRlYWFmZjQxMDllZTQ1OWZmYzg3MTki.XKvOPg.gUCkF9j-vg0PrL2PRH-v43GeHu0">
+
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Join Today</legend>
@@ -212,7 +214,7 @@
     <!------right login start here---->
     <div class="container login text-center align-self-center h-100">
         <h2 class="text-center" style="color: #fff">Login</h2>
-        <form  action="{{url_for('register')}}" method="POST">
+        <form  action="" method="POST">
           <div class="form-group align-self-center justify-content-center">
             <div class="form-group">
               {{ form.email_login.label(class="form-control-label") }}
@@ -270,9 +272,7 @@
         </div>
   
   
-          <div class="row justify-content-center align-self-center">
-            <button type="submit" class="btn btn-outline-warning">Submit</button>
-          </div>
+        
         </form>
       </div>
   
