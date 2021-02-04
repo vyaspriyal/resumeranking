@@ -33,20 +33,24 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email = email.data).first()
         if user:
             raise ValidationError('Email already taken.')
+    
     #login 
     email_login = StringField('Email',
                         validators=[DataRequired(), Email()])
     password_login = PasswordField('Password', validators=[DataRequired()],id="pwd1")
     remember = BooleanField('Remember Me')
     option1 = RadioField('Label', choices=[('admin','Admin'),('user','User')])
+    remember = BooleanField('Remember Me')
     submit_login = SubmitField('Login')
+    
 
 """
 class LoginForm(FlaskForm):
-    email = StringField('Email1',
+    email_login = StringField('Email1',
                         validators=[DataRequired(), Email()])
     password = PasswordField('Password1', validators=[DataRequired()],id="pwd1")
     remember = BooleanField('Remember Me')
     option1 = RadioField('Label', choices=[('admin','Admin'),('user','User')])
+    remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
-"""
+    """

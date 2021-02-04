@@ -2,7 +2,7 @@ from flask import  render_template, url_for, flash, redirect,request
 from project import app,db,bcrypt
 from project.forms import RegistrationForm
 from project.models import User,Admin
-
+from flask_login import login_user
 
 
 
@@ -18,7 +18,25 @@ def about():
 @app.route("/register", methods=['GET','POST'])
 def register():
     form = RegistrationForm()
-    if   form.validate_on_submit():
+        #for login
+    if form.validate_on_submit():
+        email = request.form['email_login']
+        password = request.form1['password_login']
+        option1 = request.form.get("option1")
+        user = User.query.filter_by(email = email).first()
+        if user and bcrypt.check_password_hash(user.password,password):
+            login_user(user,remember=form.remember.data)
+            return redirect(url_for('home'))
+        else:
+            pass
+
+
+
+
+    return render_template('register.html', title='Register', form=form)
+"""
+    
+    if  form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         name = request.form['username']
         phone = request.form['phone']
@@ -49,16 +67,15 @@ def register():
             pass
     
     
-        
-        
-    return render_template('register.html', title='Register', form=form)
+"""    
+
 
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.email.data == 'admin@blog.com' and form.password.data == 'password':
+        if form1.email.data == 'admin@blog.com' and form.password.data == 'password':
             flash('You have been logged in!', 'success')
             return redirect(url_for('home'))
         else:
