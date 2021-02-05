@@ -22,19 +22,7 @@ class RegistrationForm(FlaskForm):
                            validators=[DataRequired(), Length(min=2, max=20)])
     option = RadioField('option', choices=[('admin','Admin'),('user','User')])
     submit = SubmitField('Register')
-
-
-    def validate_username(self,username):
-        user = User.query.filter_by(name = username.data).first()
-        if user:
-            raise ValidationError('Username already taken.')
-    
-    def validate_email(self,email):
-        user = User.query.filter_by(email = email.data).first()
-        if user:
-            raise ValidationError('Email already taken.')
-    
-    #login 
+        #login 
     email_login = StringField('Email',
                         validators=[DataRequired(), Email()])
     password_login = PasswordField('Password', validators=[DataRequired()],id="pwd1")
@@ -42,15 +30,22 @@ class RegistrationForm(FlaskForm):
     option1 = RadioField('Label', choices=[('admin','Admin'),('user','User')])
     remember = BooleanField('Remember Me')
     submit_login = SubmitField('Login')
+
+
+    def validate_username(self,username):
+        user = User.query.filter_by(name = username).first()
+        if user:
+            raise ValidationError('Username already taken.')
+
     
+    def validate_email(self,email):
+        user = User.query.filter_by(email = email).first()
+        if user:
+            raise ValidationError('Email already taken.')
 
 """
 class LoginForm(FlaskForm):
-    email_login = StringField('Email1',
-                        validators=[DataRequired(), Email()])
-    password = PasswordField('Password1', validators=[DataRequired()],id="pwd1")
-    remember = BooleanField('Remember Me')
-    option1 = RadioField('Label', choices=[('admin','Admin'),('user','User')])
-    remember = BooleanField('Remember Me')
-    submit = SubmitField('Login')
-    """
+
+    
+
+  """

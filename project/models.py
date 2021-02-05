@@ -1,15 +1,16 @@
-from project import db,login_manager
-from flask_login import UserMixin
-
+from project import db
+#,login_manager
+#from flask_login import UserMixin
+"""
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
+"""
 #database creation for user
-class User(db.Model,UserMixin):
+class User(db.Model):
     id = db.Column(db.Integer,primary_key = True)
-    name = db.Column(db.String(20))
-    email = db.Column(db.String(100))
+    name = db.Column(db.String(20), unique = True)
+    email = db.Column(db.String(100), unique = True)
     password = db.Column(db.String(100), nullable=False)
     phone = db.Column(db.Integer)
     address = db.Column(db.String(100))
@@ -20,11 +21,12 @@ class User(db.Model,UserMixin):
         self.phone = phone
         self.password = password
         self.address = address
+
 # database creation for admin
 class Admin(db.Model):
     id = db.Column(db.Integer,primary_key = True)
-    name = db.Column(db.String(100))
-    email = db.Column(db.String(100))
+    name = db.Column(db.String(100), unique = True)
+    email = db.Column(db.String(100), unique = True)
     password = db.Column(db.String(100), nullable=False)
     phone = db.Column(db.Integer)
     address = db.Column(db.String(100))

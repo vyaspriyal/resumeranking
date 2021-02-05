@@ -5,7 +5,7 @@ import os
 import pymysql
 pymysql.install_as_MySQLdb()
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager
+#from flask_login import LoginManager
 
 app = Flask(__name__)
 
@@ -15,6 +15,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:''@localhost/beproject'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
-login_manager = LoginManager(app)
+#login_manager = LoginManager(app)
 
 from project import routes

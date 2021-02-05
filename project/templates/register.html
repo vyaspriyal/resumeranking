@@ -51,9 +51,17 @@
       <!------register start---->
     <div class=" container register text-center h-100">
       <h2 class="text-center" >Register</h2>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
         <form method="POST" action="{{ url_for('register') }}">
-            <input id="csrf_token" name="csrf_token" type="hidden" value="ImYzODdmZTdhYTRlMmNkYWRjYmRlYWFmZjQxMDllZTQ1OWZmYzg3MTki.XKvOPg.gUCkF9j-vg0PrL2PRH-v43GeHu0">
-
+        
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Join Today</legend>
@@ -200,7 +208,7 @@
 
     <div class="border-top pt-2">
         <small class="text-muted">
-            Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
+            Already Have An Account? <a class="ml-2" href="{{ url_for('register') }}">Sign In</a>
         </small>
     </div>
 </div>
@@ -214,7 +222,7 @@
     <!------right login start here---->
     <div class="container login text-center align-self-center h-100">
         <h2 class="text-center" style="color: #fff">Login</h2>
-        <form  action="" method="POST">
+        <form  action="{{ url_for('register') }}" method="POST">
      
             <fieldset class="form-group">
           <div class="form-group align-self-center justify-content-center">
