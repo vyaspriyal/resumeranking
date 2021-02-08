@@ -3,7 +3,8 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField,Intege
 from wtforms.validators import DataRequired, Length, Email, EqualTo,ValidationError
 import email_validator
 from wtforms import validators
-from project.models import User
+from project.models import User,Admin
+from flask import redirect
 
 
 
@@ -16,32 +17,29 @@ class RegistrationForm(FlaskForm):
     
     password = PasswordField('Password', validators=[DataRequired()],id="pwd")
     confirm_password = PasswordField('Confirm Password',
-                                     validators=[DataRequired(), EqualTo('password')],id="pwd2")
-    phone = IntegerField('Phone')
+                                     validators=[DataRequired()],id="pwd2")
+    phone = IntegerField('Phone',validators=[DataRequired()])
     address = StringField('Address',
                            validators=[DataRequired(), Length(min=2, max=20)])
     option = RadioField('option', choices=[('admin','Admin'),('user','User')])
     submit = SubmitField('Register')
         #login 
     email_login = StringField('Email',
-                        validators=[DataRequired(), Email()])
-    password_login = PasswordField('Password', validators=[DataRequired()],id="pwd1")
+                        validators=[ Email()],default='abc@gmail.com')
+    password_login = PasswordField('Password', validators=[],id="pwd1")
     remember = BooleanField('Remember Me')
-    option1 = RadioField('Label', choices=[('admin','Admin'),('user','User')])
+    option1 = RadioField('Label', choices=[('admin','Admin'),('user','User')], default='user')
     remember = BooleanField('Remember Me')
     submit_login = SubmitField('Login')
 
-
-    def validate_username(self,username):
-        user = User.query.filter_by(name = username).first()
-        if user:
-            raise ValidationError('Username already taken.')
-
     
-    def validate_email(self,email):
-        user = User.query.filter_by(email = email).first()
-        if user:
-            raise ValidationError('Email already taken.')
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is not None:
+            raise ValidationError('Please use a different email address.')
+   
+       
+            
 
 """
 class LoginForm(FlaskForm):

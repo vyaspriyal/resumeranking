@@ -9,8 +9,8 @@ def load_user(user_id):
 #database creation for user
 class User(db.Model):
     id = db.Column(db.Integer,primary_key = True)
-    name = db.Column(db.String(20), unique = True)
-    email = db.Column(db.String(100), unique = True)
+    name = db.Column(db.String(20))
+    email = db.Column(db.String(100))
     password = db.Column(db.String(100), nullable=False)
     phone = db.Column(db.Integer)
     address = db.Column(db.String(100))

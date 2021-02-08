@@ -25,9 +25,15 @@
   margin-top: 2px;
   margin-bottom: 6px;
   }
+  ul {
+    list-style-type: none;
+}
 </style>
 {% endblock %}
 {% block content %}
+{% if form.errors %}
+    {{ form.errors }}
+{% endif %}
 <!------main container start here---->
 <div class="container-fluid h-100"  >
 
@@ -51,22 +57,14 @@
       <!------register start---->
     <div class=" container register text-center h-100">
       <h2 class="text-center" >Register</h2>
-      {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for category, message in messages %}
-      <li class="{{ category }}">{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-        <form method="POST" action="{{ url_for('register') }}">
-        
+    
+        <form method="POST" action="" >
+         
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Join Today</legend>
                 <div class="row justify-content-center align-items-center">
-                    <div class="col-sm align-self-center">
+                  <div class="col-sm align-self-center">
                 <div class="form-group">
                     {{ form.username.label(class="form-control-label") }}
 
@@ -97,7 +95,17 @@
                     {% endif %}
                 </div>
                 </div>
+            
                 </div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                  <ul class=flashes>
+                  {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                  {% endfor %}
+                  </ul>
+                {% endif %}
+              {% endwith %}
                 <div class="row justify-content-center align-items-center">
                     <div class="col-sm align-self-center">
                 <div class="form-group">
@@ -131,6 +139,7 @@
               "></i></div>
                     {% endif %}
                 </div>
+                
                 </div>
                 <div class="col-sm align-self-center">
                 <div class="form-group">
@@ -162,8 +171,11 @@
                       "></i></div>
                     {% endif %}
                 </div>
+                
+                
                 </div>
                 </div>
+                <p style=" color: red;" id="mess"></p>
                 <div class="form-group">
                     {{ form.phone.label(class="form-control-label") }}
 
@@ -222,7 +234,7 @@
     <!------right login start here---->
     <div class="container login text-center align-self-center h-100">
         <h2 class="text-center" style="color: #fff">Login</h2>
-        <form  action="{{ url_for('register') }}" method="POST">
+        <form  action="" method="POST">
      
             <fieldset class="form-group">
           <div class="form-group align-self-center justify-content-center">

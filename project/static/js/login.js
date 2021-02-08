@@ -60,24 +60,21 @@ function toggle3(){
 }
   
              
-            function checkPassword(form) { 
-                password1 = form.pwd.value; 
-                password2 = form.pwd2.value; 
-               
+function checkPassword(form) { 
+    password1 = form.pwd.value; 
+    password2 = form.pwd2.value; 
   
-              
+
+  
+
     
-                 
-               if (password1 != password2) { 
-                     
-                    document.getElementById("mess").innerHTML = "Confirm Password does not match";
-                    return false; 
-                } 
-               
+  if (password1 != password2) { 
+        
+        document.getElementById("mess").innerHTML = "Confirm Password does not match";
+        return false; 
+    } 
   
-                
-                else{
-                 alert ("Registartion Successfull!!");
-                    return true; 
-                } 
-            }
+
+    
+   
+}
