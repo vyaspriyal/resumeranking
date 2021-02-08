@@ -5,7 +5,8 @@ import email_validator
 from wtforms import validators
 from project.models import User,Admin
 from flask import redirect
-
+from wtforms.fields.html5 import TelField
+import regex as Regexp
 
 
 class RegistrationForm(FlaskForm):
@@ -18,7 +19,7 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()],id="pwd")
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired()],id="pwd2")
-    phone = IntegerField('Phone',validators=[DataRequired()])
+    phone =  StringField('Phone', validators=[DataRequired(),Length(min = 10,max = 10),Regexp(regex='^[+-]?[0-9]$')])
     address = StringField('Address',
                            validators=[DataRequired(), Length(min=2, max=20)])
     option = RadioField('option', choices=[('admin','Admin'),('user','User')])
@@ -34,10 +35,21 @@ class RegistrationForm(FlaskForm):
 
     
     def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
-        if user is not None:
-            raise ValidationError('Please use a different email address.')
-   
+        if self.option.data == "user":
+            user = User.query.filter_by(email=email.data).first()
+            if user is not None:
+                raise ValidationError('Please use a different email address.')
+        else:
+            user = Admin.query.filter_by(email=email.data).first()
+            print(self.option,flush = True)
+            if user is not None:
+                raise ValidationError('Please use a different email address.')
+            
+    def validate_phone(self,phone):
+        print(self.phone.data,flush = True)
+        if  (self.phone.data).isalpha():
+            raise ValidationError('Phone number Contains letter or symbol')
+    
        
             
 

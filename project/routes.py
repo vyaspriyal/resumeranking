@@ -30,7 +30,7 @@ def register():
     option = request.form.get("option")
     
     
-    if   request.form['submit'] == "Register":
+    if   request.form.get('submit',False) == "Register":
         if form.validate_on_submit():
     
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')

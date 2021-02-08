@@ -25,8 +25,8 @@ class User(db.Model):
 # database creation for admin
 class Admin(db.Model):
     id = db.Column(db.Integer,primary_key = True)
-    name = db.Column(db.String(100), unique = True)
-    email = db.Column(db.String(100), unique = True)
+    name = db.Column(db.String(100))
+    email = db.Column(db.String(100))
     password = db.Column(db.String(100), nullable=False)
     phone = db.Column(db.Integer)
     address = db.Column(db.String(100))
