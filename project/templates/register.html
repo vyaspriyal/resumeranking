@@ -225,95 +225,13 @@
     </div>
 </div>
 
-
-
-    <!------register end---->
-
-    <!------right end---->
-
-    <!------right login start here---->
-    <div class="container login text-center align-self-center h-100">
-        <h2 class="text-center" style="color: #fff">Login</h2>
-        <form  action="
-        " method="POST">
-     
-            <fieldset class="form-group">
-          <div class="form-group align-self-center justify-content-center">
-      
-            <div class="form-group">
-              {{ form.email_login.label(class="form-control-label") }}
-
-              {% if form.email_login.errors %}
-                  {{ form.email_login(class="form-control form-control is-invalid") }}
-                  <div class="invalid-feedback">
-                      {% for error in form.email.errors %}
-                          <span>{{ error }}</span>
-                      {% endfor %}
-                  </div>
-              {% else %}
-                  {{ form.email_login(class="form-control form-control") }}
-              {% endif %}
-                </div>
-          </div>
-  
-          <div class="form-group">
-            {{ form.password_login.label(class="form-control-label") }}
-            {% if form.password_login.errors %}
-            <div class="wrapper mx-auto" style="position: relative">
-                {{ form.password_login(class="form-control form-control-sm is-invalid") }}
-                <i class="fa fa-eye-slash icon pass" id="eye1" aria-hidden="true" onclick="toggle1()" style="
-                background-color: yellow;
-                position: absolute;
-                right: 10px;
-                top: 10px;
-                cursor: pointer;
-              "></i></div>
-                <div class="invalid-feedback">
-                    {% for error in form.password_login.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-            {% else %}
-            <div class="wrapper mx-auto" style="position: relative">
-                {{ form.password_login(class="form-control form-control"
-                ) }}
-                <i class="fa fa-eye-slash icon pass" id="eye1" aria-hidden="true" onclick="toggle1()" style="
-                background-color: white;
-                position: absolute;
-                right: 10px;
-                top: 10px;
-                cursor: pointer;
-              "></i></div>
-            {% endif %}
-        </div>
-        <div class="form-group">
-          {% for subfield in form.option1 %}
-          <tr>
-              <td>{{ subfield }}</td>
-              <td>{{ subfield.label }}</td>
-          </tr>
-          {% endfor %}
-        </div>
-        <div class="form-check">
-            {{ form.remember(class="form-check-input") }}
-            {{ form.remember.label(class="form-check-label") }}
-        </div>
-  
-    </fieldset>
-    <div class="form-group">
-        {{ form.submit_login(class="btn btn-outline-info") }}
-    </div>
-    <small class="text-muted ml-2">
-        <a href="#">Forgot Password?</a>
-    </small>
-        
-        </form>
-      </div>
   
       <!------left login start here---->
       <!------register end---->
     </div>
   </div>
+  </div>
+  
   <!------main container end here---->
   
 
