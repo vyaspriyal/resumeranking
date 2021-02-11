@@ -1,6 +1,6 @@
 from flask import  render_template, url_for, flash, redirect,request
 from project import app,db,bcrypt
-from project.forms import RegistrationForm
+from project.forms import RegistrationForm,LoginForm
 from project.models import User,Admin
 #from flask_login import login_user
 from wtforms import validators
@@ -9,8 +9,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField,Intege
 from wtforms.validators import DataRequired, Length, Email, EqualTo,ValidationError
 import email_validator
 from flask_wtf import FlaskForm
-from wtforms import validators
-from project.models import User
+
 from sqlalchemy.exc import SQLAlchemyError
 
 
@@ -67,7 +66,6 @@ def register():
 
 
 
-"""
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -83,6 +81,4 @@ def login():
         else:
             pass
 
-    return render_template('home.html', title='Login', form=form)
-
-"""
+    return render_template('login.html', title='Login', form=form)

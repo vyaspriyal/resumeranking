@@ -24,14 +24,7 @@ class RegistrationForm(FlaskForm):
                            validators=[DataRequired(), Length(min=2, max=20)])
     option = RadioField('option', choices=[('admin','Admin'),('user','User')])
     submit = SubmitField('Register')
-        #login 
-    email_login = StringField('Email',
-                        validators=[ Email()],default='abc@gmail.com')
-    password_login = PasswordField('Password', validators=[],id="pwd1")
-    remember = BooleanField('Remember Me')
-    option1 = RadioField('Label', choices=[('admin','Admin'),('user','User')], default='user')
-    remember = BooleanField('Remember Me')
-    submit_login = SubmitField('Login')
+  
 
     
     def validate_email(self, email):
@@ -53,9 +46,16 @@ class RegistrationForm(FlaskForm):
        
             
 
-"""
+
 class LoginForm(FlaskForm):
+          #login 
+    email_login = StringField('Email',
+                        validators=[ Email()],default='abc@gmail.com')
+    password_login = PasswordField('Password', validators=[],id="pwd1")
+    remember = BooleanField('Remember Me')
+    option1 = RadioField('Label', choices=[('admin','Admin'),('user','User')], default='user')
+    remember = BooleanField('Remember Me')
+    submit_login = SubmitField('Login')
 
     
 
-  """

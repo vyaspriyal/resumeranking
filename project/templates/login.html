@@ -1,52 +1,109 @@
 {% extends "layout.html" %}
+{% block head %}
+<title>...</title>
+
+<style type="text/css">
+  * {
+    font-family: Century Gothic;
+    background-color: blue;
+  }
+
+  .change {
+    color: #ffcc00;
+  }
+
+  .aa:hover {
+    border-bottom: solid #ffcc00;
+    color: #fff;
+  }
+
+  .input {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .logincss{
+  margin-top: 2px;
+  margin-bottom: 6px;
+  }
+  ul {
+    list-style-type: none;
+}
+</style>
+{% endblock %}
 {% block content %}
-    <div class="content-section">
-        <form method="POST" action="">
-            {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Log In</legend>
-                <div class="form-group">
-                    {{ form.email.label(class="form-control-label") }}
-                    {% if form.email.errors %}
-                        {{ form.email(class="form-control form-control-sm is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.email.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.email(class="form-control form-control-sm") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.password.label(class="form-control-label") }}
-                    {% if form.password.errors %}
-                        {{ form.password(class="form-control form-control-sm is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.password.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.password(class="form-control form-control-sm") }}
-                    {% endif %}
-                </div>
-                <div class="form-check">
-                    {{ form.remember(class="form-check-input") }}
-                    {{ form.remember.label(class="form-check-label") }}
-                </div>
-            </fieldset>
-            <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
+{% if form.errors %}
+    {{ form.errors }}
+{% endif %}
+<!------main container start here---->
+<div class="container-fluid h-100 logincss"  >
+
+    <div class="row  h-100 justify-content-center align-items-center">
+       <div class="col-sm">
+        <h3 class="text-center change">welcome</h3>
+        <h2 class="text-center">Automated Pre-Selected Process for Placement by  Personality Prediction and CV analysis.</h2>
             </div>
-            <small class="text-muted ml-2">
-                <a href="#">Forgot Password?</a>
-            </small>
+         <!------left end---->
+    <div class="col-sm">
+      <nav class="navbar navbar-expand-sm text-center">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item register_li">
+            <a class="nav-link change aa" href="{{url_for('register')}}">Register</a>
+          </li>
+          <li class="nav-item login_li">
+            <a class="nav-link change aa" href="{{url_for('login')}}">Login</a>
+          </li>
+        </ul>
+      </nav>
+
+    <!------right login start here---->
+    <div class="container login text-center align-self-center h-100">
+        <h2 class="text-center" style="color: #fff">Login</h2>
+        <form  action="{{url_for('login')}}" method="POST">
+          <div class="form-group align-self-center justify-content-center">
+            <label for="email1" class="change">Email</label>
+            <input type="text" class="form-control w-50 mx-auto form-rounded" id="email1" placeholder=" Email"
+              name="email1" required />
+          </div>
+  
+          <div class="form-group">
+            <label for="pwd" class="change">Password</label>
+            <div class="wrapper" style="position: relative">
+              <input type="password" class="form-control w-50 mx-auto form-rounded" id="pwd1" placeholder=" Password"
+                name="pwd" required />
+              <i class="fa fa-eye-slash icon pass" id="eye1" aria-hidden="true" onclick="toggle1()" style="
+                  background-color: white;
+                  position: absolute;
+                  right: 280px;
+                  top: 10px;
+                  cursor: pointer;
+                "></i>
+            </div>
+          </div>
+          <div class="row justify-content-center align-self-center">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="admin" />
+              <label class="form-check-label" for="exampleRadios1">
+                Admin
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="user" />
+              <label class="form-check-label" for="exampleRadios2">
+                User
+              </label>
+            </div>
+          </div>
+  
+  
+          <div class="row justify-content-center align-self-center">
+            <button type="submit" class="btn btn-outline-warning">Submit</button>
+          </div>
         </form>
+      </div>
+  
+      <!------left login start here---->
+      <!------register end---->
     </div>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Need An Account? <a class="ml-2" href="{{ url_for('register') }}">Sign Up Now</a>
-        </small>
-    </div>
-{% endblock content %}
+  </div>
+  <!------main container end here---->
+  {% endblock %}
