@@ -64,9 +64,18 @@
     <!------right login start here---->
     <div class="container  text-center align-self-center h-100">
       <h2 class="text-center" style="color: #fff">Login</h2>
+      {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
       <form  action="
       " method="POST">
-   
+      {{ form.hidden_tag() }}
           <fieldset class="form-group">
         <div class="form-group align-self-center justify-content-center">
     

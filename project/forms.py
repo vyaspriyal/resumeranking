@@ -39,7 +39,7 @@ class RegistrationForm(FlaskForm):
                 raise ValidationError('Please use a different email address.')
             
     def validate_phone(self,phone):
-        print(self.phone.data,flush = True)
+        
         if  (self.phone.data).isalpha():
             raise ValidationError('Phone number Contains letter or symbol')
     
@@ -56,6 +56,7 @@ class LoginForm(FlaskForm):
     option1 = RadioField('Label', choices=[('admin','Admin'),('user','User')])
     remember = BooleanField('Remember Me')
     submit_login = SubmitField('Login')
+
 
     
 
