@@ -18,9 +18,6 @@ from sqlalchemy.exc import SQLAlchemyError
 @app.route("/home")
 def home():
     return render_template('home.html')
-@app.route("/about", methods=['GET', 'POST'])
-def about():
-    return render_template('login.html', title='About')
 
 
 @app.route("/register", methods=['GET','POST'])
@@ -83,14 +80,14 @@ def login():
             if user and bcrypt.check_password_hash(user.password,password_login):
             
                 login_user(user,remember=form.remember.data)
-                return redirect(url_for('home'))
+                return redirect(url_for('user'))
             else:
                 flash('Login Unsuccessfull')
         elif option1 == "admin":
             user = Admin.query.filter_by(email = email_login).first()
             if user and bcrypt.check_password_hash(user.password,password_login):
                 login_user(user,remember=form.remember.data)
-                return redirect(url_for('home'))
+                return redirect(url_for('admin'))
             else:
                 flash('Login Unsuccessfull')
         else:
@@ -108,3 +105,14 @@ def logout():
     return redirect(url_for('home'))
 
 
+@app.route("/account")
+def account():
+    return render_template('mainpageuser.html', title='About')
+
+
+@app.route("/user")
+def user():
+    return url_for('templates', filename='css/test.css')
+@app.route("/admin")
+def admin():
+    return url_for('template', filename='admin/mainpageadmin.html')
