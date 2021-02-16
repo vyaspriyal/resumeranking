@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,session
 
 from flask_sqlalchemy import SQLAlchemy
 import os
@@ -16,5 +16,5 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
-
+login_manager.login_view = 'login'
 from project import routes
