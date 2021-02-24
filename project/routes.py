@@ -1,6 +1,6 @@
 from flask import  render_template, url_for, flash, redirect,request,send_from_directory
 from project import app,db,bcrypt
-from project.forms import RegistrationForm,LoginForm,UploadForm
+from project.forms import RegistrationForm,LoginForm,UploadForm,UpdateAccountForm
 from project.models import User,Admin
 from flask_login import login_user,current_user,logout_user,login_required
 from wtforms import validators
@@ -124,10 +124,6 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-@app.route("/profile")
-def profile():
-    return render_template('user/userprofile.html', title='About')
-
 
 @app.route("/account")
 @login_required
@@ -149,4 +145,20 @@ def upload():
         return redirect(url_for('upload'))
 
     return render_template('user///mainpageuser.html', form=form)
-   
+@app.route("/profile" , methods=['GET', 'POST'])
+def profile():
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        current_user.name = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Account updated successfully !!','success')
+        return redirect(url_for('profile'))
+    elif request.method == 'GET':
+        form.username.data = current_user.name
+        form.email.data = current_user.email
+
+    image_file = url_for('static',filename = 'profile_pictures/'+ current_user.image_file)
+    return render_template('user/userprofile.html', title='About',image_file = image_file,form = form)
+
+

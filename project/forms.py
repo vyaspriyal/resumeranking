@@ -5,9 +5,10 @@ import email_validator
 from wtforms import validators
 from project.models import User,Admin
 from flask import redirect
-from wtforms.fields.html5 import TelField
+
 import regex as Regexp
 from flask_wtf.file import FileField
+from flask_login import current_user
 
 
 class RegistrationForm(FlaskForm):
@@ -62,4 +63,39 @@ class LoginForm(FlaskForm):
 class UploadForm(FlaskForm):
     file = FileField()
     
+
+
+class UpdateAccountForm(FlaskForm):
+    
+    username = StringField('Username',
+                           validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField('Email',
+                        validators=[DataRequired(), Email()])
+ 
+    phone =  StringField('Phone', [validators.DataRequired(),validators.Length(min = 10,max = 10),validators.Regexp(regex='\+?\d[\d -]{8,12}\d')])
+    address = StringField('Address',
+                           validators=[DataRequired(), Length(min=2, max=20)])
+    submit = SubmitField('Update')
+  
+
+    
+    def validate_email(self, email):
+        if email.data != current_user.email:
+            if current_user.type == "user":
+                user = User.query.filter_by(email=email.data).first()
+                if user is not None:
+                    raise ValidationError('Please use a different email address.')
+            else:
+                user = Admin.query.filter_by(email=email.data).first()
+                #print(self.option,flush = True)
+                if user is not None:
+                    raise ValidationError('Please use a different email address.')
+                
+    def validate_phone(self,phone):
+        
+        if  (self.phone.data).isalpha():
+            raise ValidationError('Phone number Contains letter or symbol')
+    
+       
+            
 
