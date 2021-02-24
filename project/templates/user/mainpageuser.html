@@ -17,12 +17,12 @@
           <!-- Navbar Right Side -->
           <div class="navbar-nav">
             {% if current_user.is_authenticated %}
-              <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
+              <a class="nav-item nav-link" href="{{ url_for('profile') }}">Account</a>
               <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
             {% else %}
               <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
               <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
-              <h4>working</h4>
+            
             {% endif %}
           </div>
         </div>
@@ -31,11 +31,41 @@
   </header>
 
   <main>
-    <h4>{{ current_user.option }}</h4>
-    <h4>{{ current_user.name }}</h4>
-    <h4>{{ current_user.email }}</h4>
-    <h4>{{ current_user.password }}</h4>
-    <h4>{{ current_user.type }}</h4>
-    <h4>user page</h4>
+    <div class="container  align-items-center">
+      <div class="row">
+        <div class="col-md-3" style="background-color: grey; height:400px;">
+          Approved Company code. 
+          Date
+          Test link
+          <br>
+          Cannot be done Now.
+        </div>
+        <div class="col-md-9" style="background-color:lightcyan;">
+          <div class="d-flex justify-content-center align-items-center" style="height:300px;" >
+            <div>
+            <form method="post" enctype="multipart/form-data">
+              {{ form.hidden_tag() }}
+              {{ form.file }}
+              <input type="submit">
+          </form>
+          <div>
+            <h4> Result of Resume Analysis</h4>
+            <h5> Random Text</h5>
+            <h5> Random Text</h5>
+            <h5> Random Text</h5>
+            <h5> Random Text</h5>
+           </div>
+           </div>
+          
+          </div>
+        </div>
+       
+      </div>
+      <div class="row" style="background-color: lightpink; height:200px">
+        Prefereneces
+        <br>
+        Cannot be done now
+      </div>
+    </div>
   </main>
 {% endblock %}

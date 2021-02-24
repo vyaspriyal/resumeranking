@@ -5,7 +5,8 @@
 <style type="text/css">
   * {
     font-family: Century Gothic;
-    background-color: blue;
+    background-color: black;
+    color: #ffcc00;
   }
 
   .change {
@@ -63,12 +64,12 @@
 
     <!------right login start here---->
     <div class="container  text-center align-self-center h-100">
-      <h2 class="text-center" style="color: #fff">Login</h2>
+      <h2 class="text-center" >Login</h2>
       {% with messages = get_flashed_messages() %}
   {% if messages %}
     <ul class=flashes>
     {% for message in messages %}
-      <li>{{ message }}</li>
+      <li style="color: red;">{{ message }}</li>
     {% endfor %}
     </ul>
   {% endif %}

@@ -7,6 +7,7 @@ from project.models import User,Admin
 from flask import redirect
 from wtforms.fields.html5 import TelField
 import regex as Regexp
+from flask_wtf.file import FileField
 
 
 class RegistrationForm(FlaskForm):
@@ -58,6 +59,7 @@ class LoginForm(FlaskForm):
     submit_login = SubmitField('Login')
 
 
-
+class UploadForm(FlaskForm):
+    file = FileField()
     
 

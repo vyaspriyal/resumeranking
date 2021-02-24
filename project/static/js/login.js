@@ -65,9 +65,6 @@ function checkPassword(form) {
     password2 = form.pwd2.value; 
   
 
-  
-
-    
   if (password1 != password2) { 
         
         document.getElementById("mess").innerHTML = "Confirm Password does not match";

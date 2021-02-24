@@ -1,6 +1,6 @@
 from flask import  render_template, url_for, flash, redirect,request,send_from_directory
 from project import app,db,bcrypt
-from project.forms import RegistrationForm,LoginForm
+from project.forms import RegistrationForm,LoginForm,UploadForm
 from project.models import User,Admin
 from flask_login import login_user,current_user,logout_user,login_required
 from wtforms import validators
@@ -9,6 +9,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField,Intege
 from wtforms.validators import DataRequired, Length, Email, EqualTo,ValidationError
 import email_validator
 from flask_wtf import FlaskForm
+from werkzeug.utils import secure_filename
 
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -20,9 +21,12 @@ def home():
     return render_template('home.html')
 
 @app.route("/user")
+@login_required
 def user():
-    return render_template('user/mainpageuser.html')
+    form = UploadForm()
+    return render_template('user/mainpageuser.html',form = form)
 @app.route("/admin")
+@login_required
 def admin():
     return render_template('admin/mainpageadmin.html')
 
@@ -120,9 +124,29 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+@app.route("/profile")
+def profile():
+    return render_template('user/userprofile.html', title='About')
+
 
 @app.route("/account")
 @login_required
 def account():
-    return render_template('user/mainpageuser.html', title='About')
+    form = UploadForm()
+    if current_user.type == "user":
+        return render_template('user/mainpageuser.html', title='About',form = form)
+    if current_user.type == "admin":
+        return render_template('admin/mainpageadmin.html', title='About')
 
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    form = UploadForm()
+    
+    if form.validate_on_submit():
+        filename = secure_filename(form.file.data.filename)
+        form.file.data.save('uploads/' + filename)
+        return redirect(url_for('upload'))
+
+    return render_template('user///mainpageuser.html', form=form)
+   

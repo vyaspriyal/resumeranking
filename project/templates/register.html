@@ -5,7 +5,8 @@
 <style type="text/css">
   * {
     font-family: Century Gothic;
-    background-color: blue;
+    background-color: black;
+    color: #ffcc00;
   }
 
   .change {
@@ -58,7 +59,7 @@
     <div class=" container register text-center h-100">
       <h2 class="text-center" >Register</h2>
     
-        <form method="POST" action="" >
+        <form method="POST" action="" onSubmit = "return checkPassword(this)" >
          
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
@@ -114,11 +115,12 @@
                     <div class="wrapper mx-auto" style="position: relative">
                         {{ form.password(class="form-control form-control is-invalid") }}
                         <i class="fa fa-eye-slash icon pass" id="eye" aria-hidden="true" onclick="toggle3()" style="
-                        background-color: yellow;
+                        background-color: black;
                         position: absolute;
                         right: 10px;
                         top: 10px;
                         cursor: pointer;
+                        color: black;
                       "></i></div>
                         <div class="invalid-feedback">
                             {% for error in form.password.errors %}
@@ -136,6 +138,7 @@
                 right: 10px;
                 top: 10px;
                 cursor: pointer;
+                color : black;
               "></i></div>
                     {% endif %}
                 </div>
@@ -153,6 +156,7 @@
                         right: 10px;
                         top: 10px;
                         cursor: pointer;
+                        color: black;
                       "></i></div>
                         <div class="invalid-feedback">
                             {% for error in form.confirm_password.errors %}
@@ -168,6 +172,7 @@
                         right: 10px;
                         top: 10px;
                         cursor: pointer;
+                        color:black;
                       "></i></div>
                     {% endif %}
                 </div>
