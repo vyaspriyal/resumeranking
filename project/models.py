@@ -1,11 +1,10 @@
 from project import db,login_manager,session
-from flask_login import UserMixin
+from flask_login import UserMixin,current_user
 
 @login_manager.user_loader
 def load_user(user_id):
-    user_id,type = user_id.split(".com")
-    user_id = user_id+".com"
-    return User.query.filter_by(email=user_id).first() if type == "user" else Admin.query.filter_by(email=user_id).first()
+   
+    return User.query.filter_by(id=user_id).first() 
 
 
 
@@ -26,7 +25,9 @@ class User(db.Model,UserMixin):
         self.password = password
         self.address = address
     def get_id(self):
-        return str(self.email+self.type)
+        return str(self.id)
+  
+
 
 # database creation for admin
 class Admin(db.Model,UserMixin):
@@ -45,5 +46,5 @@ class Admin(db.Model,UserMixin):
         self.password = password
         self.address = address
     def get_id(self):
-        return str(self.email+self.type)
+        return str(self.id)
 

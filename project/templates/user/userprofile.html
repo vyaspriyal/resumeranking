@@ -6,13 +6,21 @@
     <div class="media">
         <img class="rounded-circle account-img" src = "{{ image_file }}">
         <div class="media-body">
-            <h2 class="account-heading">{{ current_user.type }}</h2>
+            <h2 class="account-heading">{{ current_user.name }}</h2>
             <p class="text-secondary">{{ current_user.email }}</p>
         </div>
     </div>
-    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul class=flashes>
+      {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
       
-          <form method="POST" action="" onSubmit = "return checkPassword(this)" >
+          <form method="POST" action=""  >
            
               {{ form.hidden_tag() }}
               <fieldset class="form-group">
@@ -51,15 +59,7 @@
                   </div>
               
                   </div>
-                  {% with messages = get_flashed_messages(with_categories=true) %}
-                  {% if messages %}
-                    <ul class=flashes>
-                    {% for category, message in messages %}
-                      <li class="{{ category }}">{{ message }}</li>
-                    {% endfor %}
-                    </ul>
-                  {% endif %}
-                {% endwith %}
+                
                  
                   <div class="form-group">
                       {{ form.phone.label(class="form-control-label") }}
@@ -93,7 +93,9 @@
               </fieldset>
               <div class="form-group">
                   {{ form.submit(class="btn btn-outline-info") }}
+                  <a href="{{ url_for('home') }}">home </a>
               </div>
+             
           </form>
 </div>  
 </div>

@@ -80,13 +80,13 @@ class UpdateAccountForm(FlaskForm):
 
     
     def validate_email(self, email):
-        if email.data != current_user.email:
+        if self.email.data != current_user.email:
             if current_user.type == "user":
-                user = User.query.filter_by(email=email.data).first()
+                user = User.query.filter_by(email=self.email.data).first()
                 if user is not None:
                     raise ValidationError('Please use a different email address.')
             else:
-                user = Admin.query.filter_by(email=email.data).first()
+                user = Admin.query.filter_by(email=self.email.data).first()
                 #print(self.option,flush = True)
                 if user is not None:
                     raise ValidationError('Please use a different email address.')
