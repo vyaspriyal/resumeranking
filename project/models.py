@@ -3,11 +3,14 @@ from flask_login import UserMixin,current_user
 
 @login_manager.user_loader
 def load_user(user_id):
-   
-    return User.query.filter_by(id=user_id).first() 
+    if session['type'] == "user":
 
-
-
+        return User.query.get(int(user_id))
+    elif session['type'] == "admin":
+        return Admin.query.get(int(user_id))
+    else:
+        return None
+  
 #database creation for user
 class User(db.Model,UserMixin):
     id = db.Column(db.Integer,primary_key = True)

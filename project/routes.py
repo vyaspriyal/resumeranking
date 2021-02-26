@@ -53,6 +53,8 @@ def register():
             email = request.form['email']
             password = request.form['password']
             address = request.form['address']
+            
+            
 
             if option == "user":
                 print("impl",flush=True)
@@ -90,21 +92,26 @@ def login():
             return redirect(url_for('admin'))
   
     form = LoginForm()
-
+   
     if form.validate_on_submit():
         email_login = request.form['email_login']
         password_login = request.form['password_login']
         option1 = request.form.get("option1")
+        session['type'] = option1
+        
         if option1 == "user":
+       
             user = User.query.filter_by(email = email_login).first()
             if user and bcrypt.check_password_hash(user.password,password_login):
             
                 login_user(user,remember=form.remember.data)
                 next_page = request.args.get('next')
+               
                 return redirect(url_for('user'))
             else:
                 flash('Login Unsuccessfull')
         elif option1 == "admin":
+        
             admin = Admin.query.filter_by(email = email_login).first()
             if admin and bcrypt.check_password_hash(admin.password,password_login):
                 login_user(admin,remember=form.remember.data)
@@ -161,8 +168,8 @@ def profile():
         db.session.commit()
         
         flash('Account updated successfully !!','success')
-        session['username'] = current_user.name
-        session['email'] = current_user.email
+       
+       
         redirect(url_for('profile'))
     elif request.method == 'GET':
         form.username.data = current_user.name
@@ -170,8 +177,10 @@ def profile():
         form.email.data = current_user.email
         session['username'] = current_user.name
         session['email'] = current_user.email
+        
    
     image_file = url_for('static',filename = 'profile_pictures/'+ current_user.image_file)
-    return render_template('user/userprofile.html', title='About',image_file = image_file,form = form)
+    
+    return render_template('user/userprofile.html', title='About',image_file = image_file,form = form) if current_user.type == "user" else render_template('admin/adminprofile.html', title='About',image_file = image_file,form = form)
 
 
