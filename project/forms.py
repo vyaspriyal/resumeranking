@@ -7,7 +7,7 @@ from project.models import User,Admin
 from flask import redirect
 
 import regex as Regexp
-from flask_wtf.file import FileField
+from flask_wtf.file import FileField,FileAllowed
 from flask_login import current_user
 
 
@@ -61,7 +61,7 @@ class LoginForm(FlaskForm):
 
 
 class UploadForm(FlaskForm):
-    file = FileField()
+    file = FileField('Update Resume',validators=[FileAllowed(['pdf'])])
     
 
 
@@ -71,7 +71,7 @@ class UpdateAccountForm(FlaskForm):
                            validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
- 
+    picture = FileField('Update Profile Picture',validators=[FileAllowed(['jpg','png'])])
     phone =  StringField('Phone', [validators.DataRequired(),validators.Length(min = 10,max = 10),validators.Regexp(regex='\+?\d[\d -]{8,12}\d')])
     address = StringField('Address',
                            validators=[DataRequired(), Length(min=2, max=20)])
