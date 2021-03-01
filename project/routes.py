@@ -18,12 +18,12 @@ from sqlalchemy.exc import SQLAlchemyError
 
 
 
-@app.route("/")
-@app.route("/home")
+@app.route("/",methods = ['GET','POST'])
+@app.route("/home",methods = ['GET','POST'])
 def home():
     return render_template('home.html')
 
-@app.route("/user")
+@app.route("/user",methods = ['GET','POST'])
 @login_required
 def user():
     form = UploadForm()
@@ -137,7 +137,7 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route("/account")
+@app.route("/account",methods = ['GET','POST'])
 @login_required
 def account():
     form = UploadForm()
@@ -212,4 +212,8 @@ def profile():
     
     return render_template('user/userprofile.html', title='About',image_file = image_file,form = form) if current_user.type == "user" else render_template('admin/adminprofile.html', title='About',image_file = image_file,form = form)
 
-
+@app.route("/search",methods = ['GET','POST'])
+def search():
+    name = request.form.get('search')
+    user = User.query.filter_by(name = name).all()
+    return render_template('search.html',user=user,name = name)
