@@ -3,10 +3,10 @@ from flask_login import UserMixin,current_user
 
 @login_manager.user_loader
 def load_user(user_id):
-    if session['type'] == "user":
+    if session.get('type') == "user":
 
         return User.query.get(int(user_id))
-    elif session['type'] == "admin":
+    elif session.get('type') == "admin":
         return Admin.query.get(int(user_id))
     else:
         return None
