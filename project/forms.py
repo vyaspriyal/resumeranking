@@ -75,6 +75,14 @@ class UpdateAccountForm(FlaskForm):
     phone =  StringField('Phone', [validators.DataRequired(),validators.Length(min = 10,max = 10),validators.Regexp(regex='\+?\d[\d -]{8,12}\d')])
     address = StringField('Address',
                            validators=[DataRequired(), Length(min=2, max=20)])
+    No_of_year_experience = StringField('No_of_Year_experience',
+                           validators=[])
+    about = StringField('About',
+                           validators=[ Length(min=2, max=200)])
+    tagline = StringField('Tagline',
+                           validators=[ Length(min=2, max=20)])
+    current_workplace =  StringField('current_workplace',
+                           validators=[ Length(min=2, max=20)])
     submit = SubmitField('Update')
   
 

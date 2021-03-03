@@ -21,12 +21,17 @@ class User(db.Model,UserMixin):
     address = db.Column(db.String(100))
     image_file = db.Column(db.String(20), nullable=False,default = 'default.jpg')
     type = db.Column(db.String(20),default = 'user')
+    No_of_year_experience = db.Column(db.Integer,default = 0)
+    about = db.Column(db.String(500))
+    tagline = db.Column(db.String(20))
+    current_workplace =  db.Column(db.String(60))
     def __init__(self,name,email,password,phone,address):
         self.name = name
         self.email = email
         self.phone = phone
         self.password = password
         self.address = address
+        
     def get_id(self):
         return str(self.id)
   

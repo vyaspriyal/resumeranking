@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 
 {% block content %}
+{{ option }}
+
 <header class="site-header">
     <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
       <div class="container">
@@ -28,31 +30,21 @@
     </nav>
   </header>
 
-  {% if user %}
-  {% for entry in user %}
- 
-  <div class="content-section row">
-    <div class="media col-md-8 offset-md-2">
-        <img class="rounded-circle account-img" src =  {{ url_for('static', filename='profile_pictures/' + entry.image_file ) }}>
-        <div class="media-body">
-            <h2 class="account-heading">{{ entry.name }}</h2>
-            <p>{{ entry.tagline }}</p>
-           <a href = "/search/{{ entry.type }}/{{ entry.email }}">View Profile</a>
-           <!--<form method="POST"><button value = "{{ entry }}" name="user_profile">view profile</button></form>-->
-        </div>
+
+    <div class="col d-flex justify-content-center">
+    
+    
+
+  </div>
+  <div class="d-flex justify-content-center">
+
+  <div class="flex-column d-flex justify-content-center">
+    <img class="rounded-circle account-img" src = "{{ url_for('static', filename='profile_pictures/' + user.image_file ) }}">
+    <p>{{ user.name }}</p>
+    <p>{{ user.email }}</p>
+    <p>{{ user.tagline  }}</p>
+    <p>{{ user.about }}</p>
+    <p>{{ user.current_workplace }}</p>
     </div>
-  </div>
-
-  {% endfor %}
-  {% else %}
-  <div class="row">
-      <div class="col-md-8 offset-md-2">
-        <p> We couldn't find a match for {{ name }}. </p>
-        <p>Try double-checking your spelling.</p>
-      </div>
-  </div>
-  
-  {% endif %}
-
-
-{% endblock %}
+    </div>
+    {% endblock %}

@@ -193,6 +193,13 @@ def profile():
       
         current_user.name = form.username.data
         current_user.email = form.email.data
+        current_user.phone =    form.phone.data 
+        current_user.address = form.address.data 
+        current_user.about =    form.about.data 
+        current_user.current_workplace = form.current_workplace.data
+        current_user.No_of_year_experience =        form.No_of_year_experience.data 
+        current_user.tagline = form.tagline.data 
+
         print(current_user.name,flush=True)
         db.session.commit()
         
@@ -204,6 +211,13 @@ def profile():
         form.username.data = current_user.name
         
         form.email.data = current_user.email
+        form.phone.data = current_user.phone
+        form.address.data = current_user.address
+        form.about.data = current_user.about
+        form.current_workplace.data = current_user.current_workplace
+        form.No_of_year_experience.data = current_user.No_of_year_experience
+        form.tagline.data = current_user.tagline
+
         session['username'] = current_user.name
         session['email'] = current_user.email
         
@@ -217,3 +231,9 @@ def search():
     name = request.form.get('search')
     user = User.query.filter_by(name = name).all()
     return render_template('search.html',user=user,name = name)
+@app.route("/search/<type>/<email>",methods = ['GET'])
+def searchuser(type,email):
+    if type == "user":
+        user = User.query.filter_by(email = email).first()
+
+    return render_template('searchuser.html',user = user)

@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-{{ option }}
+
 <div class="content-section">
     <div class="media">
         <img class="rounded-circle account-img" src = "{{ image_file }}">
@@ -60,7 +60,8 @@
               
                   </div>
                 
-                 
+                  <div class="row justify-content-center align-items-center">
+                    <div class="col-sm align-self-center">
                   <div class="form-group">
                       {{ form.phone.label(class="form-control-label") }}
   
@@ -75,6 +76,8 @@
                           {{ form.phone(class="form-control form-control") }}
                       {% endif %}
                   </div>
+                    </div>
+                  <div class="col-sm">
                   <div class="form-group">
                       {{ form.address.label(class="form-control-label") }}
   
@@ -89,6 +92,77 @@
                           {{ form.address(class="form-control form-control") }}
                       {% endif %}
                   </div>
+                  </div>
+                  
+             
+                    <div class="col-sm ">
+                  <div class="form-group">
+                      {{ form.No_of_year_experience.label(class="form-control-label") }}
+  
+                      {% if form.No_of_year_experience.errors %}
+                          {{ form.No_of_year_experience(class="form-control form-control is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.No_of_year_experience.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.No_of_year_experience(class="form-control form-control") }}
+                      {% endif %}
+                  </div>
+                  </div>
+                  </div>
+                  <div class="row justify-content-center align-items-center">
+                  <div class="col-sm align-self-center">
+                  <div class="form-group">
+                      {{ form.current_workplace.label(class="form-control-label") }}
+                      {% if form.current_workplace.errors %}
+                          {{ form.current_workplace(class="form-control form-control is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.current_workplace.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.current_workplace(class="form-control form-control") }}
+                      {% endif %}
+                  </div>
+                  </div>
+                  <div class="col-sm ">
+                  <div class="form-group">
+
+                    {{ form.tagline.label(class="form-control-label") }}
+                    {% if form.tagline.errors %}
+                        {{ form.tagline(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.tagline.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.tagline(class="form-control form-control") }}
+                    {% endif %}
+                </div>
+              </div>
+                  </div>
+                  <div class="form-group">
+                    {{ form.about.label(class="form-control-label") }}
+                    {% if form.about.errors %}
+                        {{ form.about(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.about.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.about(class="form-control form-control") }}
+                    {% endif %}
+                </div>
+              
+              
+              
+                 
+                  
                   <div class="form-group">
                     {{ form.picture.label() }}
                     {{ form.picture(class="form-control-file") }}
