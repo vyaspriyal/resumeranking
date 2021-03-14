@@ -65,6 +65,8 @@ def register():
                 
             
                 db.session.add(my_data)
+                flash("Registeration Successfull! Pls login to access page","text-success")
+               
                 db.session.commit()
             
             elif option == "admin":
@@ -72,9 +74,10 @@ def register():
                 try:
                     db.session.add(my_data)
                     db.session.commit()
+                   
                 except:
                     if form.validate_on_submit():
-                        pass
+                        flash("Registeration Successfull! Pls login to access page","text-success")
             else:
                 pass
 
@@ -134,7 +137,7 @@ def login():
 @app.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for('home'))
+    return redirect(url_for('login'))
 
 
 @app.route("/account",methods = ['GET','POST'])
@@ -152,10 +155,11 @@ def upload():
     form = UploadForm()
     
     if form.validate_on_submit():
-        filename = secure_filename(form.file.data.filename)
-        form.file.data.save('uploads/' + filename)
+        filename = secure_filename(form.document.data.filename)
+        form.document.data.save('uploads/' + filename)
+     
         return redirect(url_for('upload'))
-
+      
     return render_template('user///mainpageuser.html', form=form)
 
 def save_picture(form_picture):
@@ -203,7 +207,7 @@ def profile():
         print(current_user.name,flush=True)
         db.session.commit()
         
-        flash('Account updated successfully !!','success')
+        flash('Account updated successfully !!','text-success')
        
        
         redirect(url_for('profile'))
@@ -227,13 +231,18 @@ def profile():
     return render_template('user/userprofile.html', title='About',image_file = image_file,form = form) if current_user.type == "user" else render_template('admin/adminprofile.html', title='About',image_file = image_file,form = form)
 
 @app.route("/search",methods = ['GET','POST'])
+@login_required
 def search():
     name = request.form.get('search')
     user = User.query.filter_by(name = name).all()
     return render_template('search.html',user=user,name = name)
 @app.route("/search/<type>/<email>",methods = ['GET'])
+@login_required
 def searchuser(type,email):
     if type == "user":
         user = User.query.filter_by(email = email).first()
 
     return render_template('searchuser.html',user = user)
+@app.route("/try")
+def try1():
+    return render_template('try.html')

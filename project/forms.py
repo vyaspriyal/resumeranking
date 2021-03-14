@@ -7,7 +7,7 @@ from project.models import User,Admin
 from flask import redirect
 
 import regex as Regexp
-from flask_wtf.file import FileField,FileAllowed
+from flask_wtf.file import FileField,FileAllowed,FileRequired
 from flask_login import current_user
 
 
@@ -33,12 +33,12 @@ class RegistrationForm(FlaskForm):
         if self.option.data == "user":
             user = User.query.filter_by(email=email.data).first()
             if user is not None:
-                raise ValidationError('Please use a different email address.')
+                raise ValidationError('Please use a different email address.',"text-danger")
         else:
             user = Admin.query.filter_by(email=email.data).first()
             print(self.option,flush = True)
             if user is not None:
-                raise ValidationError('Please use a different email address.')
+                raise ValidationError('Please use a different email address.',"text-danger")
             
     def validate_phone(self,phone):
         
@@ -61,7 +61,8 @@ class LoginForm(FlaskForm):
 
 
 class UploadForm(FlaskForm):
-    file = FileField('Update Resume',validators=[FileAllowed(['pdf'])])
+    document = FileField('file', validators=[FileRequired(),FileAllowed(['pdf'], 'PDF only!')])
+
     
 
 
@@ -80,7 +81,7 @@ class UpdateAccountForm(FlaskForm):
     about = StringField('About',
                            validators=[ Length(min=2, max=200)])
     tagline = StringField('Tagline',
-                           validators=[ Length(min=2, max=20)])
+                           validators=[ Length(min=2, max=100)])
     current_workplace =  StringField('current_workplace',
                            validators=[ Length(min=2, max=20)])
     submit = SubmitField('Update')

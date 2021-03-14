@@ -32,9 +32,7 @@
 </style>
 {% endblock %}
 {% block content %}
-{% if form.errors %}
-    {{ form.errors }}
-{% endif %}
+
 <!------main container start here---->
 <div class="container-fluid h-100"  >
 
@@ -58,7 +56,16 @@
       <!------register start---->
     <div class=" container register text-center h-100">
       <h2 class="text-center" >Register</h2>
-    
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
         <form method="POST" action="" onSubmit = "return checkPassword(this)" >
          
             {{ form.hidden_tag() }}
@@ -98,15 +105,7 @@
                 </div>
             
                 </div>
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                  <ul class=flashes>
-                  {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
-                  {% endfor %}
-                  </ul>
-                {% endif %}
-              {% endwith %}
+        
                 <div class="row justify-content-center align-items-center">
                     <div class="col-sm align-self-center">
                 <div class="form-group">
